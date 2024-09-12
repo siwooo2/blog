@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.siu.blog.login.dao.LoginMapper">
+
+
+
+    <!-- login --> 
+
+    <select id="login"
+            parameterType="com.siu.blog.login.domain.LoginRequestDTO"
+            resultType="boolean">
+        SELECT EXISTS(
+            SELECT *
+            FROM users
+            WHERE BINARY username=#{username} and BINARY password=#{password}
+        )
+        
+    </select>
+
+    <!-- getUser --> 
+
+    <select id="getUser"
+            parameterType="com.siu.blog.login.domain.LoginRequestDTO"
+            resultType="com.siu.blog.login.domain.LoginResponseDTO">
+        SELECT id, username, nickname
+        FROM users
+        WHERE BINARY username=#{username}
+
+    </select>
+    
+    
+    
+</mapper>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.siu.blog.todo.dao.ToDoMapper">
+
+
+
+
+    <!-- saveToDo --> 
+
+    <insert id="saveToDo"
+            parameterType="com.siu.blog.todo.domain.ToDoRequestDTO">
+        INSERT INTO todos(userid, content, date, time)
+        VALUE (#{userid}, #{content}, #{date}, #{time})
+    </insert>    
+
+    <!-- getToDos --> 
+
+    <select id="getToDos"
+            parameterType="com.siu.blog.todo.domain.ToDoRequestDTO"
+            resultType="com.siu.blog.todo.domain.ToDoResponseDTO">
+        SELECT id, content, completed, date, time, special
+        FROM todos
+        WHERE userid = #{userid} and date = #{date}
+    </select>
+
+
+    <!-- deleteToDo --> 
+
+    <delete id="deleteToDo"
+            parameterType="com.siu.blog.todo.domain.ToDoRequestDTO">
+        DELETE FROM todos
+        WHERE id=#{id} and userid=#{userid}
+    </delete>
+
+    <!-- updateCompleted --> 
+
+    <update id="updateCompleted"
+            parameterType="com.siu.blog.todo.domain.ToDoRequestDTO">
+        UPDATE todos
+        SET completed = #{completed}
+        WHERE userid = #{userid} and id = #{id}
+
+    </update>
+    
+
+    <!-- allDeleteToDo --> 
+
+    <delete id="allDeleteToDo"
+            parameterType="com.siu.blog.todo.domain.ToDoRequestDTO">
+        DELETE FROM todos
+        WHERE userid = #{id}
+    </delete>    
+
+    <!-- changeStar --> 
+
+    <update id="changeStar"
+            parameterType="com.siu.blog.todo.domain.ToDoRequestDTO">
+        UPDATE todos
+        SET special=#{special}
+        WHERE userid=#{userid} and id=#{id}
+    </update></mapper>
