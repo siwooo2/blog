@@ -59,4 +59,17 @@
         UPDATE todos
         SET special=#{special}
         WHERE userid=#{userid} and id=#{id}
-    </update></mapper>
+    </update>
+
+    <!-- searchToDo --> 
+
+    <select id="searchToDo"
+            parameterType="com.siu.blog.todo.domain.ToDoRequestDTO"
+            resultType="com.siu.blog.todo.domain.ToDoResponseDTO">
+        SELECT id, content, completed, date, time, special
+        FROM todos
+        WHERE userid=#{userid} and content LIKE CONCAT('%', #{content}, '%')
+    </select>    
+    
+    
+</mapper>

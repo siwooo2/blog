@@ -43,4 +43,8 @@ public class ToDoService {
         toDoMapper.changeStar(params);
         return true;
     }
+
+    public List<ToDoResponseDTO> searchToDo(ToDoRequestDTO params){
+        return toDoMapper.searchToDo(params);
+    }
 }

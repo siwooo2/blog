@@ -21,4 +21,6 @@ public interface ToDoMapper {
     public void allDeleteToDo(ToDoRequestDTO params);
 
     public void changeStar(ToDoRequestDTO params);
+
+    public List<ToDoResponseDTO> searchToDo(ToDoRequestDTO params);
 } 

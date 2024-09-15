@@ -6,6 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,12 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.siu.blog.todo.domain.ToDoRequestDTO;
 import com.siu.blog.todo.domain.ToDoResponseDTO;
 import com.siu.blog.todo.service.ToDoService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/api")
@@ -29,7 +28,6 @@ public class ToDoController {
 
     @PostMapping("/savetodo")
     public ResponseEntity<Boolean> saveToDo(@RequestBody ToDoRequestDTO params) {
-        System.out.println("params~~~~"+params);
         Boolean result = toDoService.saveToDo(params);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -81,4 +79,17 @@ public class ToDoController {
         Boolean result = toDoService.changeStar(params);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping("/searchtodo")
+    public ResponseEntity<List<ToDoResponseDTO>> searchToDo(
+        @RequestParam(value="userid") int userid,
+        @RequestParam(value="content") String content
+        ) {
+            ToDoRequestDTO params = new ToDoRequestDTO();
+            params.setUserid(userid);
+            params.setContent(content);
+            List<ToDoResponseDTO> result = toDoService.searchToDo(params);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    
 }
