@@ -17,14 +17,7 @@ public class WeatherMdService {
         try{
             JsonNode root = objectMapper.readTree(str);
             JsonNode itemsNode = root.path("response").path("body").path("items").path("item");
-            System.out.println("~~~~"+itemsNode);
-            // if(itemsNode.isArray()){
-            //     list = Arrays.stream(objectMapper.treeToValue(itemsNode, WeatherMdItemDTO[].class)).toList();
-            //     System.out.println("~~~~~"+list);
-            // }else{
-            //     System.out.println("parsing error ~~~~~");
-            // }
-
+            
             JsonNode firstItemNode = itemsNode.get(0);
             obj = objectMapper.treeToValue(firstItemNode, WeatherMdItemDTO.class);
             
